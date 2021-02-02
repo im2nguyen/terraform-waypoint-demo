@@ -29,4 +29,8 @@ app "example-nodejs" {
       port          = 80
     }
   }
+
+  url {
+    auto_hostname = false
+  }
 }
