@@ -6,6 +6,12 @@ on:
       - main
   pull_request:
 
+env:
+  WAYPOINT_SERVER_TOKEN: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
+  WAYPOINT_SERVER_ADDR: af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701
+  WAYPOINT_SERVER_TLS: 1
+  WAYPOINT_SERVER_TLS_SKIP_VERIFY: 1
+
 jobs:
   waypoint:
     name: "waypoint"
@@ -35,7 +41,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: im2nguyen/action-setup-waypoint@main
         with:
-          version: "0.1.0"
+          version: "0.2.0"
       - run: waypoint init
       - run: waypoint build
       # - name: Release
