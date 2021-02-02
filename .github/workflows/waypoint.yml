@@ -33,7 +33,7 @@ jobs:
       #     version: "0.1.0"
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
-      - uses: hashicorp/action-setup-waypoint@main
+      - uses: im2nguyen/action-setup-waypoint@main
         with:
           version: "0.1.0"
       - run: waypoint init
