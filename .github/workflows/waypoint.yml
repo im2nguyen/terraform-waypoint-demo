@@ -23,30 +23,30 @@ jobs:
       - name: Setup
         uses: im2nguyen/action-waypoint@main
         with:
-          version: "0.1.0"
+          version: "0.2.0"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          waypoint_server_address: "af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701"
+          waypoint_server_address: "ae2cfe9b973c6400ea4011c3e1321229-1264324668.us-east-2.elb.amazonaws.com:9701"
           waypoint_server_token: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
       - name: Build
         uses: im2nguyen/action-waypoint@main
         with:
           operation: build
-          version: "0.1.0"
+          version: "0.2.0"
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy
         uses: im2nguyen/action-waypoint@main
         with:
           operation: deploy
-          version: "0.1.0"
+          version: "0.2.0"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Release
-      #   uses: im2nguyen/action-waypoint@main
-      #   if: ${{ github.ref == 'refs/heads/main' }}
-      #   with:
-      #     operation: release
-      #     version: "0.1.0"
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     workspace: default
+      - name: Release
+        uses: im2nguyen/action-waypoint@main
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          operation: release
+          version: "0.2.0"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workspace: default
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Checkout
