@@ -16,7 +16,7 @@ jobs:
       - name: Setup
         uses: hashicorp/action-waypoint@v1
         with:
-          version: "0.1.0"
+          version: 0.1.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
           waypoint_server_address: "af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701"
           waypoint_server_token: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
@@ -25,14 +25,14 @@ jobs:
         uses: hashicorp/action-waypoint@v1
         with:
           operation: build
-          version: "0.1.0"
+          version: 0.1.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workspace: default
       - name: Deploy
         uses: hashicorp/action-waypoint@v1
         with:
           operation: deploy
-          version: "0.1.0"
+          version: 0.1.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workspace: default
       # - name: Release
