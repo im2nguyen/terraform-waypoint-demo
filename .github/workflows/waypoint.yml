@@ -39,14 +39,14 @@ jobs:
           operation: deploy
           version: "0.1.0"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Release
-        uses: im2nguyen/action-waypoint@main
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          operation: release
-          version: "0.1.0"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workspace: default
+      # - name: Release
+      #   uses: im2nguyen/action-waypoint@main
+      #   if: ${{ github.ref == 'refs/heads/main' }}
+      #   with:
+      #     operation: release
+      #     version: "0.1.0"
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     workspace: default
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Checkout

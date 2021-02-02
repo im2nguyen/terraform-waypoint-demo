@@ -10,8 +10,8 @@ app "example-nodejs" {
     use "pack" {}
     registry {
       use "aws-ecr" {
-        region     = "us-east-1"
-        repository = "waypoint-example"
+        region     = "us-east-2"
+        repository = "twv-sample-app-image"
         tag        = "latest"
       }
     }
