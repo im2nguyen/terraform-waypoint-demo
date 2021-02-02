@@ -9,7 +9,6 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
   WAYPOINT_SERVER_TLS: 1
   WAYPOINT_SERVER_TLS_SKIP_VERIFY: 1
 
@@ -25,7 +24,7 @@ jobs:
         with:
           version: "0.2.0"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          waypoint_server_address: "ae2cfe9b973c6400ea4011c3e1321229-1264324668.us-east-2.elb.amazonaws.com:9701"
+          waypoint_server_address: "a25a6938f5ac54ae8a03e29db4a90dda-290552862.us-east-2.elb.amazonaws.com:9701"
           waypoint_server_token: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
       - name: Build
         uses: im2nguyen/action-waypoint@main
