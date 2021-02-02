@@ -9,8 +9,7 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  WAYPOINT_SERVER_TOKEN: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
-  WAYPOINT_SERVER_ADDR: af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
   WAYPOINT_SERVER_TLS: 1
   WAYPOINT_SERVER_TLS_SKIP_VERIFY: 1
 
@@ -19,41 +18,35 @@ jobs:
     name: "waypoint"
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v2
-      # - name: Setup
-      #   uses: hashicorp/action-waypoint@v1
-      #   with:
-      #     version: "0.1.0"
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     waypoint_server_address: "af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701"
-      #     waypoint_server_token: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
-      # - name: Build
-      #   uses: hashicorp/action-waypoint@v1
-      #   with:
-      #     operation: build
-      #     version: "0.1.0"
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Deploy
-      #   uses: hashicorp/action-waypoint@v1
-      #   with:
-      #     operation: deploy
-      #     version: "0.1.0"
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v2
-      - uses: im2nguyen/action-setup-waypoint@main
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        uses: im2nguyen/action-waypoint@main
         with:
-          version: "0.2.0"
-      - run: waypoint init
-      - run: waypoint build
-      # - name: Release
-      #   uses: hashicorp/action-waypoint@v1
-      #   if: ${{ github.ref == 'refs/heads/main' }}
-      #   with:
-      #     operation: release
-      #     version: '0.1.0'
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     workspace: default
+          version: "0.1.0"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          waypoint_server_address: "af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701"
+          waypoint_server_token: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
+      - name: Build
+        uses: im2nguyen/action-waypoint@main
+        with:
+          operation: build
+          version: "0.1.0"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy
+        uses: im2nguyen/action-waypoint@main
+        with:
+          operation: deploy
+          version: "0.1.0"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: im2nguyen/action-waypoint@main
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          operation: release
+          version: "0.1.0"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workspace: default
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Checkout
