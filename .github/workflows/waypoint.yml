@@ -1,0 +1,91 @@
+name: "Terraform"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  waypoint:
+    name: "waypoint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/action-waypoint
+        name: Setup
+        with:
+          version: "0.0.1-beta1"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          waypoint_server_address: "af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701"
+          waypoint_server_ui: "https://af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9702"
+          waypoint_server_token: ${{ secrets.WAYPOINT_SERVER_TOKEN }}
+          workspace: default
+      - uses: hashicorp/action-waypoint
+        name: Build
+        with:
+          operation: build
+          version: "0.0.1-beta1"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workspace: default
+      - uses: hashicorp/action-waypoint
+        name: Deploy
+        with:
+          operation: deploy
+          version: "0.0.1-beta1"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workspace: default
+      - uses: hashicorp/action-waypoint
+        name: Release
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          operation: release
+          version: "0.0.1-beta1"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workspace: default
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Checkout
+    #     uses: actions/checkout@v2
+    #   - name: Setup Terraform
+    #     uses: hashicorp/setup-terraform@v1
+    #     with:
+    #       cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+    #       # terraform_version: 0.13.0
+    #   - name: Terraform Format
+    #     id: fmt
+    #     run: terraform fmt -check
+    #   - name: Terraform Init
+    #     id: init
+    #     run: terraform init
+    #   - name: Terraform Plan
+    #     id: plan
+    #     if: github.event_name == 'pull_request'
+    #     run: terraform plan -no-color
+    #     continue-on-error: true
+    #   - uses: actions/github-script@0.9.0
+    #     if: github.event_name == 'pull_request'
+    #     env:
+    #       PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+    #     with:
+    #       github-token: ${{ secrets.GITHUB_TOKEN }}
+    #       script: |
+    #         const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+    #         #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+    #         #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+    #         <details><summary>Show Plan</summary>
+    #         \`\`\`${process.env.PLAN}\`\`\`
+    #         </details>
+    #         *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+    #         github.issues.createComment({
+    #           issue_number: context.issue.number,
+    #           owner: context.repo.owner,
+    #           repo: context.repo.repo,
+    #           body: output
+    #         })
+    #   - name: Terraform Plan Status
+    #     if: steps.plan.outcome == 'failure'
+    #     run: exit 1
+    #   - name: Terraform Apply
+    #     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    #     run: terraform apply -auto-approve
