@@ -49,3 +49,5 @@ deployments. If this is incorrect, manually set it using the CLI command
 Advertise Address: af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9701
 Web UI Address: https://af644234fab3e4875a6d34fdc3d6ccd2-288379606.us-east-2.elb.amazonaws.com:9702
 ```
+
+Once Waypoint finishes installation, go to the Web UI Address, generate a new token, then authenticate to the Web UI. If you're using Chrome, you may need to enter `thisisunsafe` to get pass the invalid SSL cert.
