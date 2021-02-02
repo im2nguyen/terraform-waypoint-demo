@@ -32,6 +32,12 @@ jobs:
           operation: build
           version: "0.2.0"
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set KubeConfig
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        id: setcontext
       - name: Deploy
         uses: im2nguyen/action-waypoint@main
         with:
